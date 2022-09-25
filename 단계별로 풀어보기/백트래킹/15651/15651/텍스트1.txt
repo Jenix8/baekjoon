@@ -1,0 +1,30 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int N, M;
+int t[8] = { 0, };
+
+void next_seq(int c) {
+	if (t[c] != N) t[c]++;
+	else {
+		t[c] = 1;
+		next_seq(c - 1);
+	}
+}
+
+int main() {
+	cin >> N >> M;
+	
+	for (int i = 0; i < M; i++)
+		t[i] = 1;
+
+	int p = pow(N, M);
+	for (int i = 0; i < p; i++) {
+		for (int i = 0; i < M; i++)
+			cout << t[i] << ' ';
+		cout << endl;
+
+		next_seq(M - 1);
+	}
+}

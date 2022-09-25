@@ -1,0 +1,9 @@
+for (int i = 0; i < N; i++) {
+		if (Vidx < N / 2) {
+			if (v[Vidx] == i) {
+				Vidx++;
+				continue;
+			}
+		}
+		rest[Ridx++] = i;
+	}

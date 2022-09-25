@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool is_there_next(vector<int> NoC) {
+	for (int i = 0; i < NoC.size(); i++) {
+		if (NoC[i] > 0) return true;
+	}
+	return false;
+}
+
+int main() {
+	int N, M, tmpx, tmpy, m, candy = 0, curx = 0, cury = 0;
+	vector<int> x, y, NoC;
+
+	cin >> N >> M;
+
+	for (int i = 0; i < N; i++) {
+		cin >> tmpx >> tmpy;
+		x.push_back(tmpx);
+		y.push_back(tmpy);
+		if (M - x[i] - y[i] > 0)
+			NoC.push_back(M - tmpx - tmpy);
+		else NoC.push_back(0);
+	}
+
+	while (is_there_next(NoC)) {
+		int Mx = 0, Midx = 0;
+		for (int i = 0; i < N; i++) {
+			if (Mx < NoC[i]) {
+				Mx = NoC[i];
+				curx = x[i];
+				cury = y[i];
+				Midx = i;
+			}
+		}
+
+		candy += Mx;
+		NoC[Midx] = 0;
+
+		for (int i = 0; i < N; i++) {
+			if (x[i] < curx || y[i] < cury)
+				NoC[i] = 0;
+		}
+	}
+
+	cout << candy << '\n';
+
+	return 0;
+}
+
+가깝다고 해서 그게 최대가 아님 (일부러 멀리 떨어뜨려 놓고 그 곳에 몰아놨을 수도 있음)

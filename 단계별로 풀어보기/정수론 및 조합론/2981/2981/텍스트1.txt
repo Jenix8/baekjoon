@@ -1,0 +1,53 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+
+using namespace std;
+
+int Euclidean(int a, int b)
+{
+	if (a % b == 0)
+	{
+		return b;
+	}
+	return Euclidean(b, a % b);
+}
+
+
+int main()
+{
+	ios::sync_with_stdio(NULL);
+	cin.tie(NULL);
+
+	int N,j;
+	cin >> N;
+
+	vector<long long> vll(N);
+	vector<long long> result;
+	
+	for (int i = 0; i < N; ++i)
+		cin >> vll[i];
+	sort(vll.begin(), vll.end());
+
+	int cf = vll[1] - vll[0];
+	for (int i = 2; i < N; ++i)
+	{
+		cf = Euclidean(cf, (vll[i] - vll[i - 1]));
+	}
+	
+	for (int i = 2; i*i <= cf; ++i)
+	{
+		if (cf % i == 0)
+		{
+			result.push_back(i);
+			if (i * i != cf)result.push_back(cf / i);
+		}
+	}
+	result.push_back(cf);
+
+	sort(result.begin(), result.end());
+	for (size_t i = 0; i < result.size(); ++i)
+		cout << result[i] << ' ';
+} // 같은 알고리즘인데 시간 0ms

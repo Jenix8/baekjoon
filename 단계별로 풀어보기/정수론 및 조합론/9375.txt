@@ -1,0 +1,58 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+void init(string str[], int N) {
+	for (int i = 0; i < N; i++)
+		str[i] = '\0';
+}
+
+void init(int num[], int N) {
+	for (int i = 0; i < N; i++)
+		num[i] = 0;
+}
+
+int main() {
+	int T, N, cases[30];
+	string name, cate, tag[30];
+	int num[30], count = 0;
+	bool is_contained;
+
+	cin >> T;
+
+	for (int t = 0; t < T; t++) {
+		cin >> N;
+		count = 0;
+		init(tag, N);
+		init(num, N);
+
+		for (int i = 0; i < N; i++) {
+			is_contained = false;
+			cin >> name >> cate;
+
+			for (int j = 0; j < count; j++) {
+				if (tag[j] == cate) {
+					is_contained = true;
+					num[j]++;
+					break;
+				}
+			}
+
+			if (!is_contained) {
+				tag[count] = cate;
+				num[count++]++;
+			}
+		}
+
+		cases[t] = 1;
+		for (int i = 0; i < count; i++)
+			cases[t] *= num[i] + 1;
+
+		cases[t] -= 1;
+	}
+
+	for (int t = 0; t < T; t++)
+		cout << cases[t] << endl;
+
+	return 0;
+}

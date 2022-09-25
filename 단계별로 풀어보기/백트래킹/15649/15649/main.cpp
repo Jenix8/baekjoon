@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+
+int N, M;
+int v[9] = { 0, };
+bool visited[9] = { 0, };
+
+void RecP(int count) {
+	if (count == M) {
+		for (int i = 0; i < M; i++)
+			cout << v[i] << " ";
+		cout << '\n';
+	}
+	else {
+		for (int i = 1; i <= N; i++) {
+			if (!visited[i]) {
+				visited[i] = true;
+				v[count] = i;
+				RecP(count + 1);
+				visited[i] = false;
+			}
+		}
+	}
+}
+
+int main() {
+	cin >> N >> M;
+	RecP(0);
+}

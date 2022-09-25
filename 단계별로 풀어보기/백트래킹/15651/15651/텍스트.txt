@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+
+int N, M;
+int v[8];
+
+void pr(int depth) {
+	if (depth == M) {
+		for (int i = 0; i < M; i++)
+			cout << v[i] << ' ';
+		cout << endl;
+		return;
+	}
+
+	for (int i = 1; i <= N; i++) {
+		v[depth] = i;
+		pr(depth + 1);
+	}
+}
+
+int main() {
+	cin >> N >> M;
+	pr(0);
+}

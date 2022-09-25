@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+void print_vec(vector<int> v) {
+	for (auto i = 0; i < v.size(); i++)
+		cout << v[i] << " ";
+	cout << endl;
+}
+
+void recursion_print(int N, int depth, vector<int> current) {
+	if (depth == 0) {
+		print_vec(current);
+		return;
+	}
+
+	for (int i = 1; i <= N; i++) {
+		if (find(current.begin(), current.end(), i) == current.end()) {
+			current.push_back(i);
+			recursion_print(N, depth - 1, current);
+			current.pop_back();
+		}
+	}
+}
+
+int main() {
+	int N, M;
+	cin >> N >> M;
+	vector<int> v;
+	recursion_print(N, M, v);
+	return 0;
+}
